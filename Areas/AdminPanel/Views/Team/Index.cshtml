@@ -1,0 +1,80 @@
+﻿@using LumiaTemplate.Models;
+@model List<Team>
+@{
+    int count = (ViewBag.CurrentPage-1)*2;
+}
+<div class="row">
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <a asp-controller="team" asp-action="create" class="btn btn-success">Create Team</a>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                No
+                            </th>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Position
+                            </th>
+                            <th>
+                                Settings
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Team team in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td class="py-1">
+                                    <img src="~/assets/img/team/@team.Image" alt="image" />
+                                </td>
+                                <td>
+                                    @team.Name
+                                </td>
+                                <td>
+                                   @team.Description
+                                </td>
+                                <td>
+                                    @team.Position.Name
+                                </td>
+                                <td>
+                                    <a asp-controller="team" asp-action="update" asp-route-id="@team.Id" class="btn btn-warning">UPDATE</a>
+                                    <a asp-controller="team" asp-action="delete" asp-route-id="@team.Id" class="btn btn-danger">DELETE</a>
+                                </td>
+                            </tr>
+
+                        }
+
+                      
+                    </tbody>
+                </table>
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-lg">
+                            @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                            {
+                                <li class="page-item @(i==ViewBag.CurrentPage ? "disabled": " " )">
+                                    <a class="page-link" asp-route-page="@i" tabindex="-1">@i</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
